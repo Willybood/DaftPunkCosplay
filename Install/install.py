@@ -26,6 +26,10 @@ def install_dependencies():
     print("================== Start Installing PyPNG ==================")
     os.system("sudo pip3 install git+https://gitlab.com/drj11/pypng@pypng-0.20220715.0")
     print("================== Completed Installing PyPNG ==================")
+    
+    print("================== Start Installing Sox ==================")
+    os.system("sudo apt-get install sox -y")
+    print("================== Completed Installing Sox ==================")
 
 def edit_alsa_conf():
     print("================== Creating backup of alsa.conf ==================")
