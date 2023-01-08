@@ -7,6 +7,7 @@ import os
 import animationPlayer
 import threading
 from mouthAnims import runMouthAnims
+from audioMonitor import runAudioMonitor
 
 def runVoiceChanger():
     os.system("play \"|rec --buffer 2096 -d synth sine fmod 5 band 1.2k 1.5k\"")
@@ -16,5 +17,7 @@ def main():
     voiceChangerThread.start()
     mouthAnimsThread = threading.Thread(target = runMouthAnims)
     mouthAnimsThread.start()
+    audioMonitorThread = threading.Thread(target = runAudioMonitor)
+    audioMonitorThread.start()
 
 main()
