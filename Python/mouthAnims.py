@@ -4,6 +4,7 @@
 # Author: Billy Wood
 
 import RPi.GPIO as GPIO
+from animationPlayer import playAnimation, clearMatrix
 
 # This function is run once and contains the loop that handles the mouth animations
 def runMouthAnims():
@@ -13,8 +14,8 @@ def runMouthAnims():
     button4 = 17
     button5 = 27
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(button1, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(button2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(button1, GPIO.IN) # Physical pull-up present on the GPIO, soft pullup not needed
+    GPIO.setup(button2, GPIO.IN) # Physical pull-up present on the GPIO, soft pullup not needed
     GPIO.setup(button3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.setup(button4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.setup(button5, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -22,11 +23,19 @@ def runMouthAnims():
     while True:
         if(not GPIO.input(button1)):
             print("Button 1 pushed")
-        if(not GPIO.input(button2)):
+            playAnimation("../pixelart\ animations/Hello.png", 100)
+        elif(not GPIO.input(button2)):
             print("Button 2 pushed")
-        if(not GPIO.input(button3)):
+            playAnimation("../pixelart\ animations/Yes.png", 300)
+        elif(not GPIO.input(button3)):
             print("Button 3 pushed")
-        if(not GPIO.input(button4)):
+            playAnimation("../pixelart\ animations/No.png", 300)
+        elif(not GPIO.input(button4)):
             print("Button 4 pushed")
-        if(not GPIO.input(button5)):
+            playAnimation("../pixelart\ animations/Heart.png", 150)
+        elif(not GPIO.input(button5)):
             print("Button 5 pushed")
+            playAnimation("../pixelart\ animations/Talk.png", 300)
+        else:
+            # Clear the LED matrix
+            clearMatrix()

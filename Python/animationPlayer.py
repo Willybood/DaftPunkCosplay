@@ -6,6 +6,18 @@
 import png
 import sys
 import time
+from rpi_ws281x import PixelStrip
+
+animPin = 13
+ledCount = (8 * 8)
+ledFreqHz = 800000   # LED signal frequency in hertz (usually 800khz)
+ledDma = 10          # DMA channel to use for generating signal (try 10)
+ledBrightness = 255  # Set to 0 for darkest and 255 for brightest
+ledInvert = False    # True to invert the signal (when using NPN transistor level shift)
+ledChannel = 1       # Is 1 for GPIO 13
+
+ledMatrix = PixelStrip(ledCount, animPin, ledFreqHz, ledDma, ledInvert, ledBrightness, ledChannel)
+ledMatrix.begin()
 
 class PixelColourData:
     r: int
@@ -13,7 +25,7 @@ class PixelColourData:
     b: int
     a: int
 
-def playAnimation(matrixGpioPin, pathToSpriteSheet, delayBetweenFrames):
+def playAnimation(pathToSpriteSheet, delayBetweenFrames):
     spriteInfo = png.Reader(filename=pathToSpriteSheet).asRGBA8()
     spriteColourArray = list(spriteInfo[2])
 
@@ -35,5 +47,12 @@ def playAnimation(matrixGpioPin, pathToSpriteSheet, delayBetweenFrames):
                 pixelToWrite = x * y
                 if(y % 2 != 0): # If the row we're looking at is odd the matrixes pixel number is reversed
                     pixelToWrite = (8 - x) * y
-                #ledMatrix.setPixelColorRGB(pixelToWrite, pixel.r, pixel.g, pixel.b)
+                ledMatrix.setPixelColorRGB(pixelToWrite, pixel.r, pixel.g, pixel.b)
+        ledMatrix.show()
         time.sleep(delayBetweenFrames / 1000)
+
+def clearMatrix():
+    for y in range(0, 8):
+        for x in range(0, 8):
+            ledMatrix.setPixelColorRGB((y * x), 0, 0, 0)
+    ledMatrix.show()
