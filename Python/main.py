@@ -15,9 +15,9 @@ def runVoiceChanger():
 def main():
     voiceChangerThread = threading.Thread(target=runVoiceChanger)
     voiceChangerThread.start()
-    mouthAnimsThread = threading.Thread(target = runMouthAnims)
-    mouthAnimsThread.start()
     audioMonitorThread = threading.Thread(target = runAudioMonitor)
     audioMonitorThread.start()
+    mouthAnimsThread = threading.Thread(target = runMouthAnims)
+    mouthAnimsThread.start()
 
 main()
