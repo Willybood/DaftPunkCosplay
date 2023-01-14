@@ -37,8 +37,8 @@ def runAudioMonitor():
 
         for i in range (0, ledCount):
             if(i < currentActiveLed):
-                strip.setPixelColor(ledCount - i, ledColours[i])
+                strip.setPixelColor(ledCount - (i + 1), ledColours[i])
             else:
-                strip.setPixelColor(ledCount - i, Color(0, 0, 0))
+                strip.setPixelColor(ledCount - (i + 1), Color(0, 0, 0))
         strip.show()
         time.sleep(timeBetweenLedChanges / 1000.0)
