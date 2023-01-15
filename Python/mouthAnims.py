@@ -23,15 +23,15 @@ def runMouthAnims():
 
     while True:
         if(not GPIO.input(button1)):
-            playAnimation("../pixelart animations/Hello.png", 100)
+            playAnimation("/home/pi/DaftPunkCosplay/pixelart animations/Hello.png", 100)
         elif(not GPIO.input(button2)):
-            playAnimation("../pixelart animations/Yes.png", 300)
+            playAnimation("/home/pi/DaftPunkCosplay/pixelart animations/Yes.png", 300)
         elif(not GPIO.input(button3)):
-            playAnimation("../pixelart animations/No.png", 300)
+            playAnimation("/home/pi/DaftPunkCosplay/pixelart animations/No.png", 300)
         elif(not GPIO.input(button4)):
-            playAnimation("../pixelart animations/Heart.png", 150)
+            playAnimation("/home/pi/DaftPunkCosplay/pixelart animations/Heart.png", 150)
         elif(not GPIO.input(button5)):
-            playAnimation("../pixelart animations/Talk.png", 300)
+            playAnimation("/home/pi/DaftPunkCosplay/pixelart animations/Talk.png", 300)
         else:
             # Clear the LED matrix
             clearMatrix()

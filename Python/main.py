@@ -10,7 +10,7 @@ from mouthAnims import runMouthAnims
 from audioMonitor import runAudioMonitor
 
 def runVoiceChanger():
-    os.system("play \"|rec --buffer 2096 -d synth sine fmod 5 echos 0.8 0.88 50 0.6\"")
+    os.system("/usr/bin/play \"|rec --buffer 2096 -d synth sine fmod 5 echos 0.8 0.88 50 0.6\"")
 
 def main():
     voiceChangerThread = threading.Thread(target=runVoiceChanger)
