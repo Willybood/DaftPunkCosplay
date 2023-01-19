@@ -11,7 +11,8 @@ import RPi.GPIO as GPIO
 def runAudioMonitor():
     audioDetectorPin = 14
     animPin = 18
-    timeBetweenLedChanges = 50 # ms
+    timeBetweenGpioChecks = 1 # ms
+    timeBetweenLedChanges = 100 # ms
     ledCount = 7
     ledColours = [Color(255, 0, 0), Color(255, 128, 0), Color(255, 255, 0), Color(0, 255, 0), Color(0, 0, 255), Color(76, 0, 153), Color(127, 0, 255)]
     ledFreqHz = 800000   # LED signal frequency in hertz (usually 800khz)
@@ -26,19 +27,28 @@ def runAudioMonitor():
     strip = PixelStrip(ledCount, animPin, ledFreqHz, ledDma, ledInvert, ledBrightness, ledChannel)
     strip.begin()
 
+    signalDetected = False
     currentActiveLed = 0
+    secondsAtLastLedChange = time.time()
     while True:
-        if(GPIO.input(audioDetectorPin)):
-            if(currentActiveLed < ledCount):
-                currentActiveLed = currentActiveLed + 1
-        else:
-            if(currentActiveLed > 0):
-                currentActiveLed = currentActiveLed - 1
-
-        for i in range (0, ledCount):
-            if(i < currentActiveLed):
-                strip.setPixelColor(ledCount - (i + 1), ledColours[i])
+        currentSeconds = time.time()
+        secondsSinceLastLedChange = currentSeconds - secondsAtLastLedChange
+        if(not signalDetected): # Only read the GPIO if signalDetected is false, that way positive reads have priority
+            signalDetected = GPIO.input(audioDetectorPin)
+        if(secondsSinceLastLedChange > (timeBetweenLedChanges / 1000.0)):
+            if(signalDetected):
+                if(currentActiveLed < ledCount):
+                    currentActiveLed = currentActiveLed + 1
             else:
-                strip.setPixelColor(ledCount - (i + 1), Color(0, 0, 0))
-        strip.show()
-        time.sleep(timeBetweenLedChanges / 1000.0)
+                if(currentActiveLed > 0):
+                    currentActiveLed = currentActiveLed - 1
+
+            for i in range (0, ledCount):
+                if(i < currentActiveLed):
+                    strip.setPixelColor(ledCount - (i + 1), ledColours[i])
+                else:
+                    strip.setPixelColor(ledCount - (i + 1), Color(0, 0, 0))
+            strip.show()
+            secondsAtLastLedChange = currentSeconds
+            signalDetected = False
+        time.sleep(timeBetweenGpioChecks / 1000.0)

@@ -7,6 +7,8 @@ import RPi.GPIO as GPIO
 from animationPlayer import playAnimation, clearMatrix
 import time
 
+timeBetweenGpioChecks = 1 # ms
+
 # This function is run once and contains the loop that handles the mouth animations
 def runMouthAnims():
     button1 = 2
@@ -35,3 +37,4 @@ def runMouthAnims():
         else:
             # Clear the LED matrix
             clearMatrix()
+        time.sleep(timeBetweenGpioChecks / 1000.0)
