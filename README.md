@@ -1,6 +1,13 @@
 # Daft Punk Cosplay
  A Daft Punk Cosplay created for London MCM ComicCon 2023. It consists of a set of LEDs and sound changer embedded into a helmet.
  The LED strip responds to the user talking, and the LED matrix plays animations when buttons are pushed.
+ 
+ <div align="center"><img src="Media/helmetInAction.gif"  width="30%" height="30%"><img src="Media/helmetAnims.gif"  width="30%" height="30%"></div>
+ 
+ This design also features an 3D printed logo design which is then stitched onto the back and has threaded EL wire contained within.
+ 
+ <div align="center"><img src="Media/daftPunkElWire.jpg"  width="30%" height="30%"></div>
+ 
  ## Bill of materials
   - [Raspberry Pi Zero W](https://www.amazon.co.uk/Raspberry-Pi-Zero-Wireless-model/dp/B06XFZC3BX/ref=sr_1_3?crid=2EPJH006L9QOY&keywords=pi+zero+w&qid=1673994361&sprefix=pi+zero+w%2Caps%2C72&sr=8-3)
   - [WS2812B 8x8 LED matrix](https://www.amazon.co.uk/AZUOCN-Flexible-Individually-Addressable-Programmable/dp/B09DV8PZY1/ref=sr_1_6?crid=1KSCBGC0E4RQ8&keywords=WS2812B+led+matrix&qid=1673994347&sprefix=ws2812b+led+matrix%2Caps%2C64&sr=8-6)
@@ -29,10 +36,12 @@ On the Pi you can install the script by cloning the repository and running the c
 sudo python3 ./Install/install.py
 ```
 The construction of the electronics can be seen in the Fritzing diagram:
+
 ![alt text](https://github.com/Willybood/DaftPunkCosplay/blob/main/Fritzing/Head%20electronics_bb.png)
+
 The lapel mic and sound detector were placed on the USB matrix in front of the mouth.
 The gloves were made by cutting the modelling cardboard using a laser cutter and [the input SVG file](https://github.com/Willybood/DaftPunkCosplay/blob/main/Laser%20cuts/glove.svg).
-The logo on the back was made using [this laser cut design](https://www.thingiverse.com/thing:683140) from Thingiverse (with special thanks to [Andyways](https://www.thingiverse.com/andyways). It's available in the repo [here](https://github.com/Willybood/DaftPunkCosplay/blob/main/3D%20prints/DaftP_logo_mk1.1.stl) if needed.
+The logo on the back was made using [this laser cut design](https://www.thingiverse.com/thing:683140) from Thingiverse (with special thanks to [Andyways](https://www.thingiverse.com/andyways)). It's available in the repo [here](https://github.com/Willybood/DaftPunkCosplay/blob/main/3D%20prints/DaftP_logo_mk1.1.stl) if needed.
 ## Running
 Browse to the repo's folder and run the below command:
 ```
