@@ -26,7 +26,11 @@ def install_dependencies():
     print("================== Start Installing rpi_ws281x ==================")
     os.system("sudo pip3 install rpi_ws281x")
     print("================== Completed Installing rpi_ws281x ==================")
-    
+
+    print("================== Start Installing paho-mqtt ==================")
+    os.system("sudo pip3 install paho-mqtt")
+    print("================== Completed Installing paho-mqtt ==================")
+
     print("================== Start Installing PyPNG ==================")
     os.system("sudo pip3 install git+https://gitlab.com/drj11/pypng@pypng-0.20220715.0")
     print("================== Completed Installing PyPNG ==================")

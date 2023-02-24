@@ -8,7 +8,7 @@ from rpi_ws281x import PixelStrip, Color
 import RPi.GPIO as GPIO
 
 # This function is run once and contains the loop that handles the audiomonitoring
-def runAudioMonitor():
+def runAudioMonitor(thingsBoardTransmitter):
     audioDetectorPin = 14
     animPin = 18
     timeBetweenGpioChecks = 1 # ms
@@ -36,13 +36,16 @@ def runAudioMonitor():
         if(not signalDetected): # Only read the GPIO if signalDetected is false, that way positive reads have priority
             signalDetected = GPIO.input(audioDetectorPin)
         if(secondsSinceLastLedChange > (timeBetweenLedChanges / 1000.0)):
+            previousCurrentLed = currentActiveLed
             if(signalDetected):
                 if(currentActiveLed < ledCount):
                     currentActiveLed = currentActiveLed + 1
             else:
                 if(currentActiveLed > 0):
                     currentActiveLed = currentActiveLed - 1
-
+            #if(currentActiveLed != previousCurrentLed):
+                #thingsBoardTransmitter.transmit("Active LED", currentActiveLed)
+            thingsBoardTransmitter.transmit("Active LED", currentActiveLed)
             for i in range (0, ledCount):
                 if(i < currentActiveLed):
                     strip.setPixelColor(ledCount - (i + 1), ledColours[i])
