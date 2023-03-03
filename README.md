@@ -1,6 +1,6 @@
 # Daft Punk Cosplay
  A Daft Punk Cosplay created for London MCM ComicCon 2023. It consists of a set of LEDs and sound changer embedded into a helmet.
- The LED strip responds to the user talking, and the LED matrix plays animations when buttons are pushed.
+ The LED strip responds to the user talking, and the LED matrix plays animations when buttons embedded in a glove are pushed.
  
  <div align="center">
  
