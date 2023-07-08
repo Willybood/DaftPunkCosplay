@@ -10,8 +10,8 @@ import math
 
 # This function is run once and contains the loop that handles the audiomonitoring
 def runAudioMonitor():
-    audioDetectorPin = 14
-    animPin = 18
+    audioDetectorPin = 25
+    animPin = 10
     timeBetweenGpioChecks = 1 # ms
     timeBetweenLedChanges = 100 # ms
     ledCount = 7
