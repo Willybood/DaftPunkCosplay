@@ -35,7 +35,6 @@ def install_dependencies():
     os.system("sudo apt-get install git -y")
     os.system("git clone https://github.com/HinTak/seeed-voicecard")
     os.system("cd seeed-voicecard")
-    os.system("../")
     os.system("sudo ./install.sh")
     print("================== Completed setting up voice bonnet ==================")
 

@@ -11,7 +11,8 @@ import math
 # This function is run once and contains the loop that handles the audiomonitoring
 def runAudioMonitor():
     audioDetectorPin = 25
-    animPin = 10
+    ledOutPin = 22
+    animPin = 12
     timeBetweenGpioChecks = 1 # ms
     timeBetweenLedChanges = 100 # ms
     ledCount = 7
@@ -24,6 +25,7 @@ def runAudioMonitor():
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(audioDetectorPin, GPIO.IN)
+    GPIO.setup(ledOutPin, GPIO.OUT)
 
     strip = PixelStrip(ledCount, animPin, ledFreqHz, ledDma, ledInvert, ledBrightness, ledChannel)
     strip.begin()
@@ -55,5 +57,6 @@ def runAudioMonitor():
                     strip.setPixelColor(ledToChange2, Color(0, 0, 0))
             strip.show()
             secondsAtLastLedChange = currentSeconds
+            GPIO.output(ledOutPin, signalDetected)
             signalDetected = False
         time.sleep(timeBetweenGpioChecks / 1000.0)
