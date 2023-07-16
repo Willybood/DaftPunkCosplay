@@ -30,15 +30,21 @@ def install_dependencies():
     print("================== Start Installing Sox ==================")
     os.system("sudo apt-get install sox -y")
     print("================== Completed Installing Sox ==================")
-    
-    print("================== Setup voice bonnet ==================")
-    os.system("sudo apt-get install git -y")
-    os.system("git clone https://github.com/HinTak/seeed-voicecard")
-    os.system("cd seeed-voicecard")
-    os.system("sudo ./install.sh")
-    print("================== Completed setting up voice bonnet ==================")
 
-    print("================== Rebooting ==================")
-    os.system("sudo reboot")
+def edit_alsa_conf():
+    print("================== Creating backup of alsa.conf ==================")
+    copy2('/usr/share/alsa/alsa.conf', '/usr/share/alsa/alsa.conf.bak')
+    print("================== Completed backup of alsa.conf -> alsa.conf.bak ==================")
+
+    print("================== Replacing text in alsa.conf ==================")
+    with open('/usr/share/alsa/alsa.conf', 'r') as file:
+        filedata = file.read()
+        filedata = filedata.replace("defaults.ctl.card 0", "defaults.ctl.card 1")
+        filedata = filedata.replace("defaults.pcm.card 0", "defaults.pcm.card 1")
+    with open('/usr/share/alsa/alsa.conf', 'w') as file:
+        file.write(filedata)
+
+    print("================== Completed replacing text in alsa.conf ==================")
 
 install_dependencies()
+edit_alsa_conf()
