@@ -15,8 +15,8 @@ def runAudioMonitor():
     animPin = 12
     timeBetweenGpioChecks = 1 # ms
     timeBetweenLedChanges = 100 # ms
-    ledCount = 7
-    ledColours = [Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255)]
+    ledCount = 8
+    ledColours = [Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255)]
     ledFreqHz = 800000   # LED signal frequency in hertz (usually 800khz)
     ledDma = 10          # DMA channel to use for generating signal (try 10)
     ledBrightness = 255  # Set to 0 for darkest and 255 for brightest
@@ -48,7 +48,8 @@ def runAudioMonitor():
 
             for i in range (0, math.ceil(ledCount / 2)):
                 ledToChange1 = math.floor(ledCount / 2) + i
-                ledToChange2 = math.floor(ledCount / 2) - i
+                ledToChange2 = (math.floor(ledCount / 2) - i) - 1
+                print(str(ledToChange1) + ", " + str(ledToChange2))
                 if(i < currentActiveLed):
                     strip.setPixelColor(ledToChange1, ledColours[ledToChange1])
                     strip.setPixelColor(ledToChange2, ledColours[ledToChange2])
