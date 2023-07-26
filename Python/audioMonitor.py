@@ -26,6 +26,8 @@ def runAudioMonitor():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(audioDetectorPin, GPIO.IN)
     GPIO.setup(ledOutPin, GPIO.OUT)
+    pi_pwm = GPIO.PWM(ledOutPin, 1000)
+    pi_pwm.start(0)
 
     strip = PixelStrip(ledCount, animPin, ledFreqHz, ledDma, ledInvert, ledBrightness, ledChannel)
     strip.begin()
@@ -38,9 +40,9 @@ def runAudioMonitor():
         secondsSinceLastLedChange = currentSeconds - secondsAtLastLedChange
         if(not signalDetected): # Only read the GPIO if signalDetected is false, that way positive reads have priority
             signalDetected = GPIO.input(audioDetectorPin)
-        if(secondsSinceLastLedChange > (timeBetweenLedChanges / 1000.0)):
+        if(secondsSinceLastLedChange > ((timeBetweenLedChanges / 2) / 1000.0)):
             if(signalDetected):
-                if(currentActiveLed < math.ceil(ledCount / 2)):
+                if(currentActiveLed < ledCount):
                     currentActiveLed = currentActiveLed + 1
             else:
                 if(currentActiveLed > 0):
@@ -49,8 +51,7 @@ def runAudioMonitor():
             for i in range (0, math.ceil(ledCount / 2)):
                 ledToChange1 = math.floor(ledCount / 2) + i
                 ledToChange2 = (math.floor(ledCount / 2) - i) - 1
-                print(str(ledToChange1) + ", " + str(ledToChange2))
-                if(i < currentActiveLed):
+                if(i < currentActiveLed / 2):
                     strip.setPixelColor(ledToChange1, ledColours[ledToChange1])
                     strip.setPixelColor(ledToChange2, ledColours[ledToChange2])
                 else:
@@ -58,6 +59,6 @@ def runAudioMonitor():
                     strip.setPixelColor(ledToChange2, Color(0, 0, 0))
             strip.show()
             secondsAtLastLedChange = currentSeconds
-            GPIO.output(ledOutPin, signalDetected)
+            pi_pwm.ChangeDutyCycle((currentActiveLed / ledCount) * 100)
             signalDetected = False
         time.sleep(timeBetweenGpioChecks / 1000.0)
