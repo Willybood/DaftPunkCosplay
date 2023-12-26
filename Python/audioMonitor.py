@@ -16,7 +16,7 @@ def runAudioMonitor():
     timeBetweenGpioChecks = 1 # ms
     timeBetweenLedChanges = 100 # ms
     ledCount = 8
-    ledColours = [Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255), Color(0, 0, 255)]
+    ledColours = [Color(0, 255, 0), Color(0, 255, 0), Color(0, 255, 0), Color(0, 255, 0), Color(0, 255, 0), Color(0, 255, 0), Color(0, 255, 0), Color(0, 255, 0)]
     ledFreqHz = 800000   # LED signal frequency in hertz (usually 800khz)
     ledDma = 10          # DMA channel to use for generating signal (try 10)
     ledBrightness = 255  # Set to 0 for darkest and 255 for brightest
