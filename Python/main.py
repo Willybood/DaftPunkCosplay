@@ -6,8 +6,10 @@
 import os
 import threading
 from audioMonitor import runAudioMonitor
+import time
 
 def runVoiceChanger():
+    time.sleep(30) # Seconds
     os.system("/usr/bin/play \"|rec --buffer 2096 -d pitch -100 band 1.2k 1.5k\"")
 
 def main():
